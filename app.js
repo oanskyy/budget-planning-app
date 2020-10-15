@@ -33,12 +33,23 @@ let UIController = (function() {
 // GLBAL APP CONTROLLER
 let controller = (function(budgetCtrl, UICtrl) { 
 
-      let DOM = UICtrl.getDOMstrings();
+      const setupEventListeners = function () { 
+            let DOM = UICtrl.getDOMstrings();
+
+            document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem); 
+
+            document.addEventListener('keypress', function() { 
+                  if(event.keyCode === 13 || event.which === 13) { 
+                        ctrlAddItem();
+                  }
+            }); 
+      }
+
       let ctrlAddItem = function() { 
 
             // 1. get the field input data 
-            let input = UICtrl.getinput();
-            console.log(input);
+            let input = UICtrl.getinput(); 
+            
             // 2. add item to budget controller 
 
             // 3. add the new item to the UI 
@@ -47,14 +58,15 @@ let controller = (function(budgetCtrl, UICtrl) {
 
             // 5. display the budget of the UI 
 
+      };
+
+      return { 
+            init: function() { 
+                  console.log("works"); 
+                  setupEventListeners(); 
+            }
       }
 
-      document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem); 
-
-      document.addEventListener('keypress', function() { 
-            if(event.keyCode === 13 || event.which === 13) { 
-                  ctrlAddItem();
-            }
-      }); 
-
 })(budgetController, UIController);
+
+controller.init(); 
