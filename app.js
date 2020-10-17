@@ -93,17 +93,32 @@ let UIController = (function() {
                   } else if (type === 'exp') {
                         element = DOMstrings.expensesContainer;
                         
-                        html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                        html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
                   }
 
                   
                   // Replace placeholder text with some actual data from OBJ 
                   newHtml = html.replace('%id%', obj.id);
-                  newHtml = newHtml.replace('%descripton%', obj.description);
+                  newHtml = newHtml.replace('%description%', obj.description);
                   newHtml = newHtml.replace('%value%', obj.value);
                   
                   // Insert the HTML into the DOM
                   document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+            }, 
+
+            // How to clear HTML fields
+            clearFields: function() { 
+                  let fields, fieldsArr;
+
+                  fields = document.querySelectorAll(DOMstrings.inputDescription + ',' + DOMstrings.inputValue);
+
+                  fieldsArr = Array.prototype.slice.call(fields); 
+
+                  fieldsArr.forEach(function(current, index, array) { 
+                        current.value = "";
+                  });
+
+                  fieldsArr[0].focus();
             }, 
 
             getDOMstrings: function() { 
@@ -141,6 +156,8 @@ let controller = (function(budgetCtrl, UICtrl) {
             // 3. add the new item to the UI 
             UICtrl.addListItem(newItem, input.type);
 
+            // 4. Clear the fields 
+            UICtrl.clearFields();
             // 4. calculate the budget 
 
             // 5. display the budget of the UI 
