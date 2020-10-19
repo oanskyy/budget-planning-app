@@ -237,6 +237,19 @@ let controller = (function(budgetCtrl, UICtrl) {
 
       }
 
+      let updatePercentages = function() { 
+
+            // 1. Calculate percentages 
+
+
+            // 2. Read % from the budget controller 
+
+
+            // 3. Update the user interface with the new percentages 
+
+
+      }
+
 
       let ctrlAddItem = function() { 
             let input, newItem; 
@@ -256,6 +269,9 @@ let controller = (function(budgetCtrl, UICtrl) {
 
                   // 5. Calculate and update budget 
                   updateBudget();
+
+                  // 6. Calculate and update % 
+                  updatePercentages();
             };
       }
             
@@ -278,6 +294,9 @@ let controller = (function(budgetCtrl, UICtrl) {
 
                   // 3. Update and show the new budget 
                   updateBudget();
+
+                  // 4. Calculate and update percentages 
+                  updatePercentages();
             }
 
             itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
